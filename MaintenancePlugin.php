@@ -160,7 +160,7 @@ class MaintenancePlugin extends BasePlugin
             $this->initMaintenance();
 
             if ($announcement = $this->announcement) {
-                if (   craft()->userSession->checkPermission('maintenanceNoAnnouncements') && $announcement->getStatus() === 'inprogress') {
+                if (!craft()->userSession->checkPermission('maintenanceNoAnnouncements') && $announcement->getStatus() === 'inprogress') {
                     craft()->templates->includeTranslations('Maintenance in progress.');
 
                     $date = $announcement->startDate;
