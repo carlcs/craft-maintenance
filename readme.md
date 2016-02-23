@@ -53,7 +53,7 @@ Returns whether the Control Panel is currently undergoing maintenance.
 Returns whether the site is currently undergoing maintenance.
 
 ```twig
-{{ set reason = isSiteMaintenance ? 'scheduled' : 'unscheduled' }}
+{% set reason = isSiteMaintenance ? 'scheduled' : 'unscheduled' %}
 ```
 
 #### `getAnnouncement( timeInAdvance )`
