@@ -1,0 +1,75 @@
+{% extends '_layouts/cp' %}
+{% import '_includes/forms' as forms %}
+
+{% set crumbs = [
+    { label: 'Settings'|t, url: url('settings') },
+    { label: 'Plugins'|t, url: url('settings/plugins') },
+    { label: 'Maintenance', url: url('settings/plugins/maintenance/index') }
+] %}
+
+{% if announcement is not defined and announcementId is defined %}
+    {% set announcement = craft.maintenance.getAnnouncementById(announcementId) %}
+    {% if not announcement %}{% exit 404 %}{% endif %}
+{% endif %}
+
+{% set isNewAnnouncement = (announcement is not defined or not announcement.id) %}
+
+{% set title = isNewAnnouncement ? 'Add a new announcement'|t : 'Edit announcement'|t %}
+
+
+{% set content %}
+    <form method="post" accept-charset="UTF-8" data-saveshortcut>
+        {{ getCsrfInput() }}
+        <input type="hidden" name="action" value="maintenance/saveAnnouncement">
+        <input type="hidden" name="redirect" value="settings/plugins/maintenance/index">
+        {% if not isNewAnnouncement %}<input type="hidden" name="id" value="{{ announcement.id }}">{% endif %}
+
+        {{ forms.textareaField({
+            label: 'Message'|t,
+            instructions: null,
+            first: true,
+            required: true,
+            id: 'message',
+            name: 'message',
+            rows: 7,
+            value: announcement is defined ? announcement.message : null,
+            errors: announcement is defined ? announcement.errors('message') : null,
+        }) }}
+
+        {{ forms.dateTimeField({
+            label: 'Start'|t,
+            instructions: null,
+            id: 'startDate',
+            name: 'startDate',
+            value: announcement is defined ? announcement.startDate : null,
+            errors: announcement is defined ? announcement.errors('startDate') : null,
+        }) }}
+
+        {{ forms.dateTimeField({
+            label: 'End'|t,
+            instructions: null,
+            id: 'endDate',
+            name: 'endDate',
+            value: announcement is defined ? announcement.endDate : null,
+            errors: announcement is defined ? announcement.errors('endDate') : null,
+        }) }}
+
+        {{ forms.lightswitchField({
+            label: 'Backend Maintenance'|t,
+            id: 'blockCp',
+            name: 'blockCp',
+            on: announcement is defined ? announcement.blockCp : true,
+        }) }}
+
+        {{ forms.lightswitchField({
+            label: 'Frontend Maintenance'|t,
+            id: 'blockSite',
+            name: 'blockSite',
+            on: announcement is defined ? announcement.blockSite : false,
+        }) }}
+
+        <div class="buttons">
+            <input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+        </div>
+    </form>
+{% endset %}

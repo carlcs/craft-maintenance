@@ -1,0 +1,83 @@
+.maintenanceBanner-date,
+.maintenanceOverlay-date {
+  white-space: nowrap;
+}
+
+#maintenanceOverlay {
+  min-width: 35em;
+  max-width: 45em;
+}
+
+.maintenanceOverlay-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1em;
+}
+
+.maintenanceOverlay-title,
+.maintenanceOverlay-meta {
+  margin: 0;
+}
+
+.maintenanceOverlay-title {
+  margin-right: 2em;
+}
+
+.maintenanceOverlay-meta,
+.maintenanceWidget-meta {
+  font-weight: normal !important;
+  color: #8f98a3 !important;
+}
+
+.widget.maintenance .front div+h2 {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.widget.maintenance .front p,
+.widget.maintenance .front h1,
+.widget.maintenance .front h2,
+.widget.maintenance .front h3,
+.widget.maintenance .front h4,
+.widget.maintenance .front h5,
+.widget.maintenance .front h6,
+.widget.maintenance .front ol,
+.widget.maintenance .front ul,
+.widget.maintenance .front pre,
+.widget.maintenance .front blockquote {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0.3em 0 0;
+  padding: 0;
+}
+
+.widget.maintenance .front ol,
+.widget.maintenance .front ul {
+  margin-left: 2.5em;
+}
+
+.widget.maintenance .front ul {
+  list-style: disc;
+}
+
+.widget.maintenance .front h1,
+.widget.maintenance .front h2,
+.widget.maintenance .front h3,
+.widget.maintenance .front h4,
+.widget.maintenance .front h5,
+.widget.maintenance .front h6 {
+  margin-top: 0.6em;
+  font-weight: bold;
+  color: #29323d;
+}
+
+.widget.maintenance .front pre {
+  white-space: pre-wrap;
+}
+
+.widget.maintenance .front hr {
+  display: none;
+}

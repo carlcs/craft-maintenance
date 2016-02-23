@@ -1,0 +1,20 @@
+<table class="data fullwidth">
+    {% if announcements|length %}
+        {% for announcement in announcements %}
+            <tr>
+                <td>
+                    {% if announcement.startDate %}
+                        <h5 class="maintenanceWidget-meta">
+                            {% set date = announcement.startDate %}
+                            {{ 'Scheduled for {date}'|t({ date: '<span class="nowrap">' ~ date.localeDate() ~ '</span> <span class="nowrap">' ~ date.localeTime() ~ '</span>' })|raw }}
+                        </h5>
+                    {% endif %}
+
+                    {{ announcement.message|md }}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <span class="light">{{ 'There are no announcements.'|t }}<span>
+    {% endif %}
+</table>

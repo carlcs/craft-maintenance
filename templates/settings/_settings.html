@@ -1,0 +1,60 @@
+{% extends 'maintenance/_layouts/cp' %}
+{% set title = 'Maintenance'|t %}
+
+{% set crumbs = [
+    { label: 'Settings'|t, url: url('settings') },
+    { label: 'Plugins'|t, url: url('settings/plugins') },
+] %}
+
+{% set selectedTab = 'settings' %}
+
+{% import '_includes/forms' as forms %}
+
+{% set content %}
+    {% set path = true or craft.maintenance.hasCustomConfigFile ? 'craft/config/maintenance.php' %}
+    <p class="maintenanceSettings-notice" data-icon="alert">{{ 'The settings are loaded from the {path} config file.'|t({ path: '<code>'~path~'</code>' })|raw }}</p>
+
+    <hr>
+
+    <div class="light">
+        {{ forms.textField({
+            label: 'Whitelist Frontend URLs'|t,
+            instructions: 'The pages still available when frontend maintenance is in progress.'|t,
+            id: 'maintenanceUrls',
+            name: 'maintenanceUrls',
+            class: 'code',
+            first: true,
+            value: craft.config.get('maintenanceUrls', 'maintenance')|join(' '),
+            disabled: true,
+        }) }}
+
+        {{ forms.textField({
+            label: 'Whitelist IP Addresses'|t,
+            instructions: 'The list of IPs which have access to the site when frontend maintenance is in progress.'|t,
+            id: 'maintenanceIps',
+            name: 'maintenanceIps',
+            class: 'code',
+            first: true,
+            value: craft.config.get('maintenanceIps', 'maintenance')|join(' '),
+            disabled: true,
+        }) }}
+
+        {{ forms.textField({
+            label: 'Status “Upcoming”'|t,
+            instructions: 'The time in advance notification banners are shown.'|t,
+            id: 'maintenanceUpcoming',
+            name: 'maintenanceUpcoming',
+            value: craft.config.get('maintenanceUpcoming', 'maintenance'),
+            disabled: true,
+        }) }}
+
+        {{ forms.textField({
+            label: 'Status “Imminent”'|t,
+            instructions: 'The time in advance a countdown is shown in the notification banner instead of the start date.'|t,
+            id: 'maintenanceImminent',
+            name: 'maintenanceImminent',
+            value: craft.config.get('maintenanceImminent', 'maintenance'),
+            disabled: true,
+        }) }}
+    </div>
+{% endset %}

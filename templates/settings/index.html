@@ -1,0 +1,89 @@
+{% extends 'maintenance/_layouts/cp' %}
+{% set title = 'Maintenance' %}
+
+{% set crumbs = [
+    { label: 'Settings'|t, url: url('settings') },
+    { label: 'Plugins'|t, url: url('settings/plugins') },
+] %}
+
+{% set selectedTab = 'announcements' %}
+
+{% set announcements = craft.maintenance.getAnnouncements %}
+{% set sortable = (announcements|length > 1) %}
+
+{% set statuses = {
+    none:       { label: 'None'|t, icon: 'light' },
+    disabled:   { label: 'Disabled'|t, icon: 'disabled' },
+    upcoming:   { label: 'Upcoming'|t, icon: 'orange' },
+    imminent:   { label: 'Upcoming'|t, icon: 'orange' },
+    inprogress: { label: 'In progress'|t, icon: 'red' },
+    completed:  { label: 'Completed'|t, icon: 'green' },
+} %}
+
+{% set content %}
+    <p id="maintenance_noannouncements"{% if announcements|length %} class="hidden"{% endif %}>
+        {{ 'No announcements exist yet.'|t }}
+    </p>
+
+    {% if announcements|length %}
+        <table id="maintenance_announcements" class="data fullwidth collapsible">
+            <thead>
+                <tr>
+                    <th scope="col">{{ 'Message'|t }}</th>
+                    <th scope="col">{{ 'Maintenance'|t }}</th>
+                    <th scope="col">{{ 'Start'|t }}</th>
+                    <th scope="col">{{ 'End'|t }}</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for announcement in announcements %}
+                    {% set message = announcement.message|md|striptags|replace('/\\n+/', ' — ')|trim('— ') %}
+                    {% set message = message|length > 150 ? message|slice(0, 150)|trim ~ '…' : message %}
+
+                    {% set status = statuses[announcement.getStatus()] %}
+
+                    <tr data-id="{{ announcement.id }}" data-name="{{ message|slice(0, 40)|trim ~ '…' }}">
+                        <td>
+                            <a href="{{ url('settings/plugins/maintenance/' ~ announcement.id) }}">{{ message }}</a>
+                        </td>
+                        <td class="nowrap">
+                            <span class="status {{ status.icon }}"></span>
+                            {{ status.label }}
+                        </td>
+                        <td>
+                            {% if announcement.startDate %}
+                                <span class="nowrap">{{ announcement.startDate.localeDate() }}</span>
+                                <span class="nowrap">{{ announcement.startDate.localeTime() }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if announcement.endDate %}
+                                <span class="nowrap">{{ announcement.endDate.localeDate() }}</span>
+                                <span class="nowrap">{{ announcement.endDate.localeTime() }}</span>
+                            {% endif %}
+                        </td>
+
+                        {% if sortable %}<td class="thin"><a class="move icon" title="{{ 'Reorder'|t }}" role="button"></a></td>{% endif %}
+                        <td class="thin"><a class="delete icon" title="{{ 'Delete'|t }}"></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="buttons">
+        <a href="{{ url('settings/plugins/maintenance/new') }}" class="btn submit add icon">{{ 'New Announcement'|t }}</a>
+    </div>
+{% endset %}
+
+{% set js %}
+    new Craft.AdminTable({
+        tableSelector: '#maintenance_announcements',
+        noObjectsSelector: '#maintenance_noannouncements',
+        sortable: true,
+        reorderAction: 'maintenance/reorderAnnouncements',
+        deleteAction: 'maintenance/deleteAnnouncement'
+    });
+{% endset %}
+{% includeJs js %}
