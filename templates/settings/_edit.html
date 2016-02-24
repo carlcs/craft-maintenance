@@ -14,7 +14,7 @@
 
 {% set isNewAnnouncement = (announcement is not defined or not announcement.id) %}
 
-{% set title = isNewAnnouncement ? 'Add a new announcement'|t : 'Edit announcement'|t %}
+{% set title = isNewAnnouncement ? 'Create a new announcement'|t : 'Edit announcement'|t %}
 
 
 {% set content %}
@@ -37,7 +37,7 @@
         }) }}
 
         {{ forms.dateTimeField({
-            label: 'Start'|t,
+            label: 'Start Date'|t,
             instructions: null,
             id: 'startDate',
             name: 'startDate',
@@ -46,7 +46,7 @@
         }) }}
 
         {{ forms.dateTimeField({
-            label: 'End'|t,
+            label: 'End Date'|t,
             instructions: null,
             id: 'endDate',
             name: 'endDate',

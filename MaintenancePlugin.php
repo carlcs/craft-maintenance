@@ -103,7 +103,7 @@ class MaintenancePlugin extends BasePlugin
                     $message = Craft::t('Maintenance in progress.');
                     break;
 
-                case 'upcoming':
+                case 'pending':
                     $date = $announcement->startDate;
                     $message = Craft::t('Maintenance will be carried out on {date}.', array('date' => '<span class="maintenanceBanner-date">'.$date->localeDate().' '.$date->localeTime().'</span>'));
                     break;
@@ -129,7 +129,7 @@ class MaintenancePlugin extends BasePlugin
     protected function initMaintenance()
     {
         if (!$this->announcement) {
-            $timeInAdvance = craft()->config->get('maintenanceUpcoming', 'maintenance');
+            $timeInAdvance = craft()->config->get('maintenancePending', 'maintenance');
             $this->announcement = craft()->maintenance->getNextAnnouncement($timeInAdvance);
         }
     }

@@ -14,8 +14,8 @@
 {% set statuses = {
     none:       { label: 'None'|t, icon: 'light' },
     disabled:   { label: 'Disabled'|t, icon: 'disabled' },
-    upcoming:   { label: 'Upcoming'|t, icon: 'orange' },
-    imminent:   { label: 'Upcoming'|t, icon: 'orange' },
+    pending:    { label: 'Pending'|t, icon: 'orange' },
+    imminent:   { label: 'Pending'|t, icon: 'orange' },
     inprogress: { label: 'In progress'|t, icon: 'red' },
     completed:  { label: 'Completed'|t, icon: 'green' },
 } %}
@@ -31,8 +31,8 @@
                 <tr>
                     <th scope="col">{{ 'Message'|t }}</th>
                     <th scope="col">{{ 'Maintenance'|t }}</th>
-                    <th scope="col">{{ 'Start'|t }}</th>
-                    <th scope="col">{{ 'End'|t }}</th>
+                    <th scope="col">{{ 'Start Date'|t }}</th>
+                    <th scope="col">{{ 'End Date'|t }}</th>
                     <th colspan="2"></th>
                 </tr>
             </thead>

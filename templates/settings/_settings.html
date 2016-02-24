@@ -18,8 +18,8 @@
 
     <div class="light">
         {{ forms.textField({
-            label: 'Whitelist Frontend URLs'|t,
-            instructions: 'The pages still available when frontend maintenance is in progress.'|t,
+            label: 'Whitelist URLs'|t,
+            instructions: 'Define the URLs that are accessible when frontend maintenance is in progress.'|t,
             id: 'maintenanceUrls',
             name: 'maintenanceUrls',
             class: 'code',
@@ -30,7 +30,7 @@
 
         {{ forms.textField({
             label: 'Whitelist IP Addresses'|t,
-            instructions: 'The list of IPs which have access to the site when frontend maintenance is in progress.'|t,
+            instructions: 'Define the list of IP addresses that have access to the site when frontend maintenance is in progress.'|t,
             id: 'maintenanceIps',
             name: 'maintenanceIps',
             class: 'code',
@@ -40,11 +40,11 @@
         }) }}
 
         {{ forms.textField({
-            label: 'Status “Upcoming”'|t,
+            label: 'Status “Pending”'|t,
             instructions: 'The time in advance notification banners are shown.'|t,
-            id: 'maintenanceUpcoming',
-            name: 'maintenanceUpcoming',
-            value: craft.config.get('maintenanceUpcoming', 'maintenance'),
+            id: 'maintenancePending',
+            name: 'maintenancePending',
+            value: craft.config.get('maintenancePending', 'maintenance'),
             disabled: true,
         }) }}
 

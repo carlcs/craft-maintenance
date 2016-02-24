@@ -5,7 +5,7 @@ class MaintenanceWidget extends BaseWidget
 {
     public function getName()
     {
-        return Craft::t('Maintenance Announcements');
+        return Craft::t('Announcements');
     }
 
     public function getSettingsHtml()
@@ -33,7 +33,7 @@ class MaintenanceWidget extends BaseWidget
     protected function defineSettings()
     {
         return array(
-            'title' => array(AttributeType::Name, 'required' => true, 'default' => Craft::t('Maintenance Announcements')),
+            'title' => array(AttributeType::Name, 'required' => true, 'default' => Craft::t('Announcements')),
             'limit' => array(AttributeType::Number, 'min' => 0, 'default' => 5),
         );
     }

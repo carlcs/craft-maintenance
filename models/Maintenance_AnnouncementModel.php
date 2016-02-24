@@ -4,23 +4,23 @@ namespace Craft;
 class Maintenance_AnnouncementModel extends BaseModel
 {
     // Constants
-	// =========================================================================
+    // =========================================================================
 
     const NONE       = 'none';
-	const DISABLED   = 'disabled';
+    const DISABLED   = 'disabled';
     const COMPLETED  = 'completed';
-	const INPROGRESS = 'inprogress';
+    const INPROGRESS = 'inprogress';
     const IMMINENT   = 'imminent';
-    const UPCOMING   = 'upcoming';
+    const PENDING    = 'pending';
 
     // Public Methods
-	// =========================================================================
+    // =========================================================================
 
     /**
-	 * Returns the element's status.
-	 *
-	 * @return string|null
-	 */
+     * Returns the element's status.
+     *
+     * @return string|null
+     */
     public function getStatus()
     {
         $currentTime = DateTimeHelper::currentTimeStamp();
@@ -40,7 +40,7 @@ class Maintenance_AnnouncementModel extends BaseModel
         } else {
             if ($startDate > $currentTime) {
                 if ($startDate > $currentTime + $secondsInAdvance) {
-                    return static::UPCOMING;
+                    return static::PENDING;
                 } else {
                     return static::IMMINENT;
                 }
@@ -53,13 +53,13 @@ class Maintenance_AnnouncementModel extends BaseModel
     }
 
     // Protected Methods
-	// =========================================================================
+    // =========================================================================
 
     /**
-	 * Defines this model's attributes.
-	 *
-	 * @return array
-	 */
+     * Defines this model's attributes.
+     *
+     * @return array
+     */
     protected function defineAttributes()
     {
         return array(

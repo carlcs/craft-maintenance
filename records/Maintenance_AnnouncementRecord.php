@@ -4,20 +4,20 @@ namespace Craft;
 class Maintenance_AnnouncementRecord extends BaseRecord
 {
     /**
-	 * Returns the name of the associated database table.
-	 *
-	 * @return string
-	 */
+     * Returns the name of the associated database table.
+     *
+     * @return string
+     */
     public function getTableName()
     {
         return 'maintenance_announcements';
     }
 
     /**
-	 * Returns this model's validation rules.
-	 *
-	 * @return array
-	 */
+     * Returns this model's validation rules.
+     *
+     * @return array
+     */
     public function rules()
     {
         $rules = parent::rules();
@@ -27,10 +27,10 @@ class Maintenance_AnnouncementRecord extends BaseRecord
     }
 
     /**
-	 * Adds validation rules to the endDate attribute.
-	 *
-	 * @return null
-	 */
+     * Adds validation rules to the endDate attribute.
+     *
+     * @return null
+     */
     public function validateEndDate($attribute)
     {
         if ($this->endDate) {
@@ -45,13 +45,13 @@ class Maintenance_AnnouncementRecord extends BaseRecord
     }
 
     // Protected Methods
-	// =========================================================================
+    // =========================================================================
 
     /**
-	 * Defines this model's attributes.
-	 *
-	 * @return array
-	 */
+     * Defines this model's attributes.
+     *
+     * @return array
+     */
     protected function defineAttributes()
     {
         return array(
