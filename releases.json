@@ -1,8 +1,18 @@
 [
   {
+    "version": "1.0.2",
+    "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.0.2.zip",
+    "date": "2016-02-24T09:00:00+01:00",
+    "notes": [
+      "[Added] Added plugin icons.",
+      "[Added] Added German language.",
+      "[Improved] Adjusted some terms for the English language.",
+    ]
+  },
+  {
     "version": "1.0.1",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.0.1.zip",
-    "date": "2016-01-23T17:00:00+01:00",
+    "date": "2016-02-23T17:00:00+01:00",
     "notes": [
       "[Fixed] Fixed a bug where admins were seeing the maintenance overlay and normal users were not."
     ]
@@ -10,7 +20,7 @@
   {
     "version": "1.0.0",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.0.0.zip",
-    "date": "2016-01-23T09:00:00+01:00",
+    "date": "2016-02-23T09:00:00+01:00",
     "notes": [
       "First release"
     ]
