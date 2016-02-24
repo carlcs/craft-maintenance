@@ -31,6 +31,10 @@
   color: #8f98a3 !important;
 }
 
+.maintenanceSettings-notice:before {
+  margin-right: 5px;
+}
+
 .widget.maintenance .front div+h2 {
   margin: 0 0 14px;
   font-size: 15px;
