@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.1.1",
+    "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.1.1.zip",
+    "date": "2016-02-25T03:00:00+01:00",
+    "notes": [
+      "[Added] `127.0.0.1` is now added to the default configuration of whitelisted IP Addresses.",
+      "[Fixed] Fixed a bug where frontend maintenance didn’t work when backend maintenance was disabled."
+    ]
+  },
+  {
     "version": "1.1.0",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.1.0.zip",
     "date": "2016-02-25T02:00:00+01:00",
