@@ -37,7 +37,7 @@ class Maintenance_AnnouncementModel extends BaseModel
             return static::NONE;
         }
 
-        if (!$this->blockCp) {
+        if (!$this->blockCp && !$this->blockSite) {
             return static::DISABLED;
         } else {
             if ($startDate > $currentTime) {

@@ -42,7 +42,11 @@ class MaintenanceService extends BaseApplicationComponent
             ->where(
                 array(
                     'and',
-                    'blockCp = 1',
+                    array(
+                        'or',
+                        'blockSite = 1',
+                        'blockCp = 1',
+                    ),
                     'startDate <= :time',
                     array(
                         'or',
