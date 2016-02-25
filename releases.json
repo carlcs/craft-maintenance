@@ -1,12 +1,21 @@
 [
   {
+    "version": "1.1.0",
+    "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.1.0.zip",
+    "date": "2016-02-25T02:00:00+01:00",
+    "notes": [
+      "[Added] It is now possible to make settings from the plugin’s settings page and from the `craft/config/maintenance.php` config file.",
+      "[Added] Added French language."
+    ]
+  },
+  {
     "version": "1.0.2",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.0.2.zip",
     "date": "2016-02-24T09:00:00+01:00",
     "notes": [
       "[Added] Added plugin icons.",
       "[Added] Added German language.",
-      "[Improved] Adjusted some terms for the English language.",
+      "[Improved] Adjusted some terms for the English language."
     ]
   },
   {
