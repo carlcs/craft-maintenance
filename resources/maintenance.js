@@ -1,5 +1,53 @@
 (function($) {
 
+
+Craft.MaintenancePlugin = Garnish.Base.extend(
+{
+  init: function()
+  {
+    this.maintenanceSettingsToggle();
+  },
+
+  maintenanceSettingsToggle: function()
+  {
+    var that = this;
+
+    $('#blockSite-field, #blockCp-field').on('click', function(ev) {
+      that.updateToggle();
+    });
+
+    $('#startDate-field, #endDate-field').on('focusout', function(ev) {
+      that.updateToggle();
+    });
+  },
+
+  updateToggle: function()
+  {
+    var checkboxValues = [];
+    var dateValues = [];
+
+    $('#blockSite-field, #blockCp-field').each(function(index, element) {
+      if ($(element).find('input').val()) {
+        checkboxValues.push($(element).attr('id'));
+      }
+    });
+
+    $('#startDate-field, #endDate-field').each(function(index, element) {
+      if ($(element).find('.datewrapper input').val()) {
+        dateValues.push($(element).attr('id'));
+      }
+    });
+
+    if (checkboxValues.length == 0 && dateValues.length == 0) {
+      $('#maintenanceSettings-dateFields').addClass('hidden');
+    } else {
+      $('#maintenanceSettings-dateFields').removeClass('hidden');
+    }
+  }
+});
+
+new Craft.MaintenancePlugin();
+
 Craft.MaintenanceModal = Garnish.Base.extend(
 {
   announcement: null,

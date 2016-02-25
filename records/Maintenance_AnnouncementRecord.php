@@ -21,9 +21,25 @@ class Maintenance_AnnouncementRecord extends BaseRecord
     public function rules()
     {
         $rules = parent::rules();
-        $rules[] = ['endDate', 'validateEndDate'];
+        $rules[] = array('startDate', 'validateStartDate');
+        $rules[] = array('endDate', 'validateEndDate');
 
         return $rules;
+    }
+
+    /**
+     * Adds validation rules to the startDate attribute.
+     *
+     * @return null
+     */
+    public function validateStartDate($attribute)
+    {
+        // Checks if they only entered an endDate, or if startDate is missing
+        // but a maintenance mode was enabled
+        if ((!$this->startDate && $this->endDate) || (($this->blockCp || $this->blockSite) && !$this->startDate)) {
+            $message = Craft::t('Start Date is required for scheduled maintenance.');
+            $this->addError($attribute, $message);
+        }
     }
 
     /**
@@ -33,12 +49,17 @@ class Maintenance_AnnouncementRecord extends BaseRecord
      */
     public function validateEndDate($attribute)
     {
-        if ($this->endDate) {
+        if (!$this->startDate && $this->endDate) {
+            $message = Craft::t('Remove End Date to save a maintenance note.');
+            $this->addError($attribute, $message);
+        }
+
+        if ($this->startDate && $this->endDate) {
             $startDate = $this->startDate->getTimestamp();
             $endDate   = $this->endDate->getTimestamp();
 
             if ($startDate > $endDate) {
-                $message = Craft::t('Start date is greater than end date.');
+                $message = Craft::t('End Date is less than Start Date.');
                 $this->addError($attribute, $message);
             }
         }
@@ -58,7 +79,7 @@ class Maintenance_AnnouncementRecord extends BaseRecord
             'message'   => array(AttributeType::String, 'column' => ColumnType::Text, 'label' => Craft::t('Message'), 'required' => true),
             'startDate' => array(AttributeType::DateTime, 'label' => Craft::t('Start')),
             'endDate'   => array(AttributeType::DateTime, 'label' => Craft::t('End')),
-            'blockCp'   => array(AttributeType::Bool, 'default' => true),
+            'blockCp'   => array(AttributeType::Bool, 'default' => false),
             'blockSite' => array(AttributeType::Bool, 'default' => false),
             'sortOrder' => array(AttributeType::SortOrder),
         );

@@ -69,7 +69,7 @@ class Maintenance_AnnouncementModel extends BaseModel
             'message'   => AttributeType::String,
             'startDate' => AttributeType::DateTime,
             'endDate'   => AttributeType::DateTime,
-            'blockCp'   => array(AttributeType::Bool, 'default' => true),
+            'blockCp'   => array(AttributeType::Bool, 'default' => false),
             'blockSite' => array(AttributeType::Bool, 'default' => false),
         );
     }

@@ -32,7 +32,15 @@
 }
 
 .maintenanceSettings-notice:before {
-  margin-right: 5px;
+  margin-right: 3px;
+}
+
+#blockSite-field {
+  margin-bottom: 0;
+}
+
+#maintenanceSettings-dateFields {
+  margin-top: 24px;
 }
 
 .widget.maintenance .front div+h2 {
