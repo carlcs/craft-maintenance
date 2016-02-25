@@ -61,12 +61,22 @@ class MaintenanceVariable
     }
 
     /**
-     * Returns whether there is a custom config file for the plugin.
+     * Returns the plugin's settings.
+     *
+     * @return array
+     */
+    public function getPluginSettings()
+    {
+        return craft()->maintenance->getPluginSettings();
+    }
+
+    /**
+     * Returns whether there is a custom config.
      *
      * @return bool
      */
-    public function hasCustomConfigFile($name = 'maintenance')
+    public function hasConfigFile()
     {
-        return (bool) IOHelper::fileExists(CRAFT_CONFIG_PATH.$name.'.php');
+        return craft()->maintenance->hasConfigFile();
     }
 }

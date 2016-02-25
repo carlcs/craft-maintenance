@@ -44,10 +44,33 @@ class MaintenancePlugin extends BasePlugin
     // Properties
     // =========================================================================
 
+    public $pluginSettings;
+
     protected $announcement;
 
     // Public Methods
     // =========================================================================
+
+    public function init()
+    {
+        $this->pluginSettings = craft()->maintenance->getPluginSettings();
+
+        if (craft()->request->isCpRequest()) {
+            craft()->templates->includeCssResource('maintenance/maintenance.css');
+            craft()->templates->includeJsResource('maintenance/maintenance.js');
+        }
+
+        $this->initCpAccessControl();
+        $this->initSiteAccessControl();
+    }
+
+    public function prepSettings($settings)
+    {
+        $settings['maintenanceUrls'] = array_filter(explode(' ', $settings['maintenanceUrls']));
+        $settings['maintenanceIps'] = array_filter(explode(' ', $settings['maintenanceIps']));
+
+        return $settings;
+    }
 
     public function getSettingsUrl()
     {
@@ -77,17 +100,6 @@ class MaintenancePlugin extends BasePlugin
     {
         Craft::import('plugins.maintenance.twigextensions.MaintenanceTwigExtension');
         return new MaintenanceTwigExtension();
-    }
-
-    public function init()
-    {
-        if (craft()->request->isCpRequest()) {
-            craft()->templates->includeCssResource('maintenance/maintenance.css');
-            craft()->templates->includeJsResource('maintenance/maintenance.js');
-        }
-
-        $this->initCpAccessControl();
-        $this->initSiteAccessControl();
     }
 
     public function getCpAlerts($path, $fetch)
@@ -126,10 +138,20 @@ class MaintenancePlugin extends BasePlugin
     // Protected Methods
 	// =========================================================================
 
+    protected function defineSettings()
+    {
+        return array(
+            'maintenanceUrls'     => array(AttributeType::Mixed, 'default' => array('/legal-notice')),
+            'maintenanceIps'      => array(AttributeType::Mixed, 'default' => array()),
+            'maintenancePending'  => array(AttributeType::String, 'default' => '24 hours'),
+            'maintenanceImminent' => array(AttributeType::String, 'default' => '60 minutes'),
+        );
+    }
+
     protected function initMaintenance()
     {
         if (!$this->announcement) {
-            $timeInAdvance = craft()->config->get('maintenancePending', 'maintenance');
+            $timeInAdvance = $this->pluginSettings['maintenancePending'];
             $this->announcement = craft()->maintenance->getNextAnnouncement($timeInAdvance);
         }
     }
@@ -137,13 +159,13 @@ class MaintenancePlugin extends BasePlugin
     protected function initSiteAccessControl()
     {
         if (craft()->request->isSiteRequest() && (!craft()->userSession->checkPermission('maintenanceSiteAccess'))) {
-            if (!in_array(craft()->request->getIpAddress(), craft()->config->get('maintenanceIps', 'maintenance'))) {
+            if (!in_array(craft()->request->getIpAddress(), $this->pluginSettings['maintenanceIps'])) {
                 $this->initMaintenance();
 
                 if ($announcement = $this->announcement) {
                     if ($announcement->blockSite && $announcement->getStatus() === 'inprogress') {
                         $urlWhitelist = array('/503');
-                        $urlWhitelist = array_merge($urlWhitelist, craft()->config->get('maintenanceUrls', 'maintenance'));
+                        $urlWhitelist = array_merge($urlWhitelist, $this->pluginSettings['maintenanceUrls']);
 
                         if (!in_array(craft()->request->getUrl(), $urlWhitelist)) {
                             craft()->request->redirect('/503');

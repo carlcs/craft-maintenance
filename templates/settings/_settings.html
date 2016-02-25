@@ -10,51 +10,69 @@
 
 {% import '_includes/forms' as forms %}
 
+{% set settings = craft.maintenance.getPluginSettings() %}
+{% set hasConfigFile = craft.maintenance.hasConfigFile %}
+
 {% set content %}
-    {% set path = true or craft.maintenance.hasCustomConfigFile ? 'craft/config/maintenance.php' %}
-    <p class="maintenanceSettings-notice" data-icon="alert">{{ 'The settings are loaded from the {path} config file.'|t({ path: '<code>'~path~'</code>' })|raw }}</p>
+    {% if hasConfigFile %}
+        <p class="maintenanceSettings-notice" data-icon="alert">
+            {{- 'The settings are loaded from the {path} config file.'|t({ path: '<code>craft/config/maintenance.php</code>' })|raw }}
+        </p>
+        <hr>
+    {% endif %}
 
-    <hr>
+    <form class="{{ hasConfigFile ? 'light' }}" method="post" accept-charset="UTF-8" data-saveshortcut>
+        <input type="hidden" name="action" value="plugins/savePluginSettings">
+        <input type="hidden" name="pluginClass" value="Maintenance">
+        <input type="hidden" name="redirect" value="settings/plugins/maintenance/settings">
 
-    <div class="light">
-        {{ forms.textField({
-            label: 'Whitelist URLs'|t,
-            instructions: 'Define the URLs that are accessible when frontend maintenance is in progress.'|t,
-            id: 'maintenanceUrls',
-            name: 'maintenanceUrls',
-            class: 'code',
-            first: true,
-            value: craft.config.get('maintenanceUrls', 'maintenance')|join(' '),
-            disabled: true,
-        }) }}
+        {{ getCsrfInput() }}
+        {% namespace 'settings' %}
 
-        {{ forms.textField({
-            label: 'Whitelist IP Addresses'|t,
-            instructions: 'Define the list of IP addresses that have access to the site when frontend maintenance is in progress.'|t,
-            id: 'maintenanceIps',
-            name: 'maintenanceIps',
-            class: 'code',
-            first: true,
-            value: craft.config.get('maintenanceIps', 'maintenance')|join(' '),
-            disabled: true,
-        }) }}
+            {{ forms.textField({
+                label: 'Whitelist URLs'|t,
+                instructions: 'Define the URLs that are accessible when frontend maintenance is in progress.'|t,
+                id: 'maintenanceUrls',
+                name: 'maintenanceUrls',
+                class: 'code',
+                first: true,
+                value: settings.maintenanceUrls|join(' '),
+                disabled: hasConfigFile,
+            }) }}
 
-        {{ forms.textField({
-            label: 'Status “Pending”'|t,
-            instructions: 'The time in advance notification banners are shown.'|t,
-            id: 'maintenancePending',
-            name: 'maintenancePending',
-            value: craft.config.get('maintenancePending', 'maintenance'),
-            disabled: true,
-        }) }}
+            {{ forms.textField({
+                label: 'Whitelist IP Addresses'|t,
+                instructions: 'Define the list of IP addresses that have access to the site when frontend maintenance is in progress.'|t,
+                id: 'maintenanceIps',
+                name: 'maintenanceIps',
+                class: 'code',
+                first: true,
+                value: settings.maintenanceIps|join(' '),
+                disabled: hasConfigFile,
+            }) }}
 
-        {{ forms.textField({
-            label: 'Status “Imminent”'|t,
-            instructions: 'The time in advance a countdown is shown in the notification banner instead of the start date.'|t,
-            id: 'maintenanceImminent',
-            name: 'maintenanceImminent',
-            value: craft.config.get('maintenanceImminent', 'maintenance'),
-            disabled: true,
-        }) }}
-    </div>
+            {{ forms.textField({
+                label: 'Status “Pending”'|t,
+                instructions: 'The time in advance notification banners are shown.'|t,
+                id: 'maintenancePending',
+                name: 'maintenancePending',
+                value: settings.maintenancePending,
+                disabled: hasConfigFile,
+            }) }}
+
+            {{ forms.textField({
+                label: 'Status “Imminent”'|t,
+                instructions: 'The time in advance a countdown is shown in the notification banner instead of the start date.'|t,
+                id: 'maintenanceImminent',
+                name: 'maintenanceImminent',
+                value: settings.maintenanceImminent,
+                disabled: hasConfigFile,
+            }) }}
+
+        {% endnamespace %}
+
+        <div class="buttons">
+            <input class="btn submit {{ hasConfigFile ? 'disabled' }}" type="submit" value="{{ 'Save'|t }}" {{ hasConfigFile ? 'disabled' }}>
+        </div>
+    </form>
 {% endset %}

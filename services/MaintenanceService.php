@@ -150,6 +150,47 @@ class MaintenanceService extends BaseApplicationComponent
         }
     }
 
+    /**
+     * Returns the plugin's settings.
+     *
+     * @return bool
+     */
+    public function getPluginSettings()
+    {
+        // FIXME: make feature request so this ugly isn't necessary
+        $items = array(
+            'maintenanceUrls',
+            'maintenanceIps',
+            'maintenancePending',
+            'maintenanceImminent',
+        );
+
+        // Is there a maintenance.php?
+        if ($this->hasConfigFile()) {
+            $settings = array();
+            foreach ($items as $item) {
+                $settings[$item] = craft()->config->get($item, 'maintenance');
+            }
+        } else {
+            $plugin = craft()->plugins->getPlugin('maintenance');
+            $settings = $plugin->getSettings();
+
+            // We have no settings to merge from config.php
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Returns whether there is a custom config file.
+     *
+     * @return bool
+     */
+    public function hasConfigFile()
+    {
+        return (bool) IOHelper::fileExists(CRAFT_CONFIG_PATH.'maintenance.php');
+    }
+
     // Private Methods
     // =========================================================================
 

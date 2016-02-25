@@ -27,7 +27,9 @@ class Maintenance_AnnouncementModel extends BaseModel
         $startDate   = ($this->startDate ? $this->startDate->getTimestamp() : null);
         $endDate     = ($this->endDate ? $this->endDate->getTimestamp() : null);
 
-        $interval = craft()->config->get('maintenanceImminent', 'maintenance');
+        $pluginSettings = craft()->plugins->getPlugin('maintenance')->pluginSettings;
+
+        $interval = $pluginSettings['maintenanceImminent'];
         $interval = DateInterval::createFromDateString($interval);
         $secondsInAdvance = (new DateTime('@0'))->add($interval)->getTimeStamp();
 
