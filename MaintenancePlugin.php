@@ -142,7 +142,7 @@ class MaintenancePlugin extends BasePlugin
     {
         return array(
             'maintenanceUrls'     => array(AttributeType::Mixed, 'default' => array('/legal-notice')),
-            'maintenanceIps'      => array(AttributeType::Mixed, 'default' => array()),
+            'maintenanceIps'      => array(AttributeType::Mixed, 'default' => array('127.0.0.1')),
             'maintenancePending'  => array(AttributeType::String, 'default' => '24 hours'),
             'maintenanceImminent' => array(AttributeType::String, 'default' => '60 minutes'),
         );
