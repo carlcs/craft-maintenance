@@ -46,9 +46,8 @@ class MaintenanceWidget extends BaseWidget
         $statuses = craft()->plugins->getPlugin('maintenance')->announcementStatuses;
 
         // We don't show them the none and imminent status
-        $statuses = array_filter($statuses, function($status) {
-            return !in_array($status['value'], array('none', 'imminent'));
-        });
+        unset($statuses['none']);
+        unset($statuses['imminent']);
 
         return craft()->templates->render('maintenance/widgets/settings', array(
             'settings' => $this->getSettings(),

@@ -58,12 +58,12 @@ class MaintenancePlugin extends BasePlugin
         $this->pluginSettings = craft()->maintenance->getPluginSettings();
 
         $this->announcementStatuses = array(
-            array('value' => 'none',  'label' => Craft::t('None'), 'icon' => 'light'),
-            array('value' => 'disabled', 'label' => Craft::t('Disabled'), 'icon' => 'disabled'),
-            array('value' => 'completed', 'label' => Craft::t('Completed'), 'icon' => 'green'),
-            array('value' => 'inprogress', 'label' => Craft::t('In progress'), 'icon' => 'red'),
-            array('value' => 'imminent', 'label' => Craft::t('Pending'), 'icon' => 'orange'),
-            array('value' => 'pending', 'label' => Craft::t('Pending'), 'icon' => 'orange'),
+            'none'       => array('label' => Craft::t('None'), 'icon' => 'light'),
+            'disabled'   => array('label' => Craft::t('Disabled'), 'icon' => 'disabled'),
+            'completed'  => array('label' => Craft::t('Completed'), 'icon' => 'green'),
+            'inprogress' => array('label' => Craft::t('In progress'), 'icon' => 'red'),
+            'imminent'   => array('label' => Craft::t('Pending'), 'icon' => 'orange'),
+            'pending'    => array('label' => Craft::t('Pending'), 'icon' => 'orange'),
         );
 
         if (craft()->request->isCpRequest()) {

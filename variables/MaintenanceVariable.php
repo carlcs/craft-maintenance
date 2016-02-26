@@ -79,4 +79,14 @@ class MaintenanceVariable
     {
         return craft()->maintenance->hasConfigFile();
     }
+
+    /**
+     * Returns the plugin's settings.
+     *
+     * @return array
+     */
+    public function getAnnouncementStatuses()
+    {
+        return craft()->plugins->getPlugin('maintenance')->announcementStatuses;
+    }
 }

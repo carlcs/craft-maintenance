@@ -11,14 +11,7 @@
 {% set announcements = craft.maintenance.getAnnouncements %}
 {% set sortable = (announcements|length > 1) %}
 
-{% set statuses = {
-    none:       { label: 'None'|t, icon: 'light' },
-    disabled:   { label: 'Disabled'|t, icon: 'disabled' },
-    pending:    { label: 'Pending'|t, icon: 'orange' },
-    imminent:   { label: 'Pending'|t, icon: 'orange' },
-    inprogress: { label: 'In progress'|t, icon: 'red' },
-    completed:  { label: 'Completed'|t, icon: 'green' },
-} %}
+{% set statuses = craft.maintenance.getAnnouncementStatuses %}
 
 {% set content %}
     <p id="maintenance_noannouncements"{% if announcements|length %} class="hidden"{% endif %}>
