@@ -7,7 +7,7 @@
       "[Added] It’s now possible to configure what type of announcements are shown in an Announcements widget.",
       "[Improved] The Edit Announcement page now only shows the date fields if maintenance is enabled.",
       "[Improved] Improved announcement validation error messages.",
-      "[Improved] New announcements now don’t have a maintenance mode enabled by default. Makes it more straightforward and quicker to set up simple maintenance notes."
+      "[Improved] New announcements now don’t have a maintenance mode enabled by default. Makes it more straightforward to set up messages without a maintenance announcement."
     ]
   },
   {

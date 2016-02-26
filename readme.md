@@ -6,7 +6,7 @@ The plugin provides tools to help you do maintenance on your Craft CMS website:
 
 - Display a “Maintenance in progress” overlay in the Control Panel when the site is undergoing [scheduled maintenance](#maintenance-modes)
 - [Announce upcoming maintenance](#maintenance-announcements) on the dashboard and with notification banners
-- Leave your users [(maintenance related) notes](#maintenance-notes) on the dashboard widget
+- Leave your users [(maintenance related) messages](#maintenance-messages) on the dashboard widget
 - Access maintenance related info from your templates using the provided [template variables](#template-variables)
 
 ## Installation
@@ -19,7 +19,7 @@ $ composer require carlcs/craft-maintenance
 
 ## Maintenance Announcements
 
-Set up maintenance announcements or <a name='maintenance-notes' />maintenance notes from the plugin’s settings page. You can use markdown to add links, or to format the message. To configure scheduled maintenance you have to set a start date in the announcement’s settings and enable [“Backend Maintenance”](#backend-maintenance) and/or [“Frontend Maintenance”](#frontend-maintenance).
+Set up maintenance announcements or <a name='maintenance-messages' />messages from the plugin’s settings page. You can use markdown to add links, or to format the message. To configure scheduled maintenance you have to set a start date in the announcement’s settings and enable [“Backend Maintenance”](#backend-maintenance) and/or [“Frontend Maintenance”](#frontend-maintenance).
 
 Create a new “Maintenance Announcements” widget to display all notifications on the users’ Dashboards. Upcoming maintenance will also be announced with a banner notification.
 
