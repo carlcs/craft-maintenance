@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.2.2",
+    "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.2.2.zip",
+    "date": "2016-02-26T16:00:00+01:00",
+    "notes": [
+      "[Added] Added Norwegian language."
+    ]
+  },
+  {
     "version": "1.2.1",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.2.1.zip",
     "date": "2016-02-26T14:00:00+01:00",
