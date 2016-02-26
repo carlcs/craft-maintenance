@@ -1,5 +1,16 @@
 [
   {
+    "version": "1.2.0",
+    "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.2.0.zip",
+    "date": "2016-02-26T03:00:00+01:00",
+    "notes": [
+      "[Added] It’s now possible to configure what type of announcements are shown in an Announcements widget.",
+      "[Improved] The Edit Announcement page now only shows the date fields if maintenance is enabled.",
+      "[Improved] Improved announcement validation error messages.",
+      "[Improved] New announcements now don’t have a maintenance mode enabled by default. Makes it more straightforward and quicker to set up simple maintenance notes."
+    ]
+  },
+  {
     "version": "1.1.1",
     "downloadUrl": "https://github.com/carlcs/craft-maintenance/archive/v1.1.1.zip",
     "date": "2016-02-25T03:00:00+01:00",
