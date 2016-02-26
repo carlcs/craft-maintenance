@@ -13,6 +13,13 @@ return array(
     'Scheduled for {date}' => 'Vorgesehen am {date}',
     'started {date}' => 'seit {date}',
 
+    // Widget
+    'Maintenance Status' => 'Status der Wartung',
+    'Messages without a maintenance announcement' => 'Mitteilungen ohne eine Wartungsankündigung',
+    'Pending' => 'Anstehend',
+    'In progress' => 'Laufend',
+    'Completed' => 'Abgeschlossen',
+
     // Admin and settings
     'New Announcement' => 'Neue Ankündigung',
     'Create a new announcement' => 'Eine neue Ankündigung erstellen',
@@ -22,12 +29,10 @@ return array(
     'No announcements exist yet.' => 'Es gibt noch keine Ankündigungen.',
     'Backend Maintenance' => 'Wartung des Backends',
     'Frontend Maintenance' => 'Wartung des Frontends',
-    'Start date is greater than end date.' => 'Anfangsdatum liegt nach dem Enddatum.',
+    'End Date is less than Start Date.' => 'Enddatum liegt vor dem Anfangsdatum.',
+    'Start Date cannot be blank.' => 'Anfangsdatum darf nicht leer sein.',
     'Start Date' => 'Anfangsdatum',
     'End Date' => 'Enddatum',
-    'Pending' => 'Anstehend',
-    'In progress' => 'Laufend',
-    'Completed' => 'Abgeschlossen',
     'Whitelist URLs' => 'Liste zulässiger URLs',
     'Whitelist IP Addresses' => 'Liste zulässiger IP Adressen',
     'Status “Pending”' => 'Status “Anstehend”',

@@ -37,7 +37,7 @@ class Maintenance_AnnouncementRecord extends BaseRecord
         // Checks if they only entered an endDate, or if startDate is missing
         // but a maintenance mode was enabled
         if ((!$this->startDate && $this->endDate) || (($this->blockCp || $this->blockSite) && !$this->startDate)) {
-            $message = Craft::t('Start Date is required for scheduled maintenance.');
+            $message = Craft::t('Start Date cannot be blank .');
             $this->addError($attribute, $message);
         }
     }
@@ -49,11 +49,6 @@ class Maintenance_AnnouncementRecord extends BaseRecord
      */
     public function validateEndDate($attribute)
     {
-        if (!$this->startDate && $this->endDate) {
-            $message = Craft::t('Remove End Date to save a maintenance note.');
-            $this->addError($attribute, $message);
-        }
-
         if ($this->startDate && $this->endDate) {
             $startDate = $this->startDate->getTimestamp();
             $endDate   = $this->endDate->getTimestamp();
