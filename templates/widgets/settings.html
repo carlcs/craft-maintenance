@@ -1,19 +1,28 @@
 {% import '_includes/forms' as forms %}
 
 {{ forms.textField({
-	label: 'Title'|t,
-	id: 'title',
-	name: 'title',
-	value: settings.title,
-	required: true,
-	errors: settings.getErrors('title')
+    label: 'Title'|t,
+    id: 'title',
+    name: 'title',
+    value: settings.title,
+    required: true,
+    errors: settings.getErrors('title')
 }) }}
 
-{{ forms.textField({
-	label: 'Limit'|t,
-	id: 'limit',
-	name: 'limit',
-	value: settings.limit,
-	size: 2,
-	errors: settings.getErrors('limit')
+{{ forms.checkboxField({
+    label: 'Announcements without scheduled maintenance'|t,
+    id: 'simpleNote',
+    name: 'simpleNote',
+    checked: settings.simpleNote,
+    errors: settings.getErrors('simpleNote')
+}) }}
+
+{{ forms.checkboxSelectField({
+    label: 'Maintenance Status'|t,
+    id: 'statuses',
+    name: 'statuses',
+    options: statuses,
+    showAllOption: false,
+    values: settings.statuses,
+    errors: settings.getErrors('statuses')
 }) }}

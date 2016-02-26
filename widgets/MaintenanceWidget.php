@@ -43,8 +43,16 @@ class MaintenanceWidget extends BaseWidget
      */
     public function getSettingsHtml()
     {
+        $statuses = craft()->plugins->getPlugin('maintenance')->announcementStatuses;
+
+        // We don't show them the none and imminent status
+        $statuses = array_filter($statuses, function($status) {
+            return !in_array($status['value'], array('none', 'imminent'));
+        });
+
         return craft()->templates->render('maintenance/widgets/settings', array(
-            'settings' => $this->getSettings()
+            'settings' => $this->getSettings(),
+            'statuses' => $statuses,
         ));
     }
 
@@ -55,11 +63,10 @@ class MaintenanceWidget extends BaseWidget
      */
     public function getBodyHtml()
     {
-        $limit = $this->getSettings()->limit;
         $announcements = craft()->maintenance->getAnnouncements();
 
         return craft()->templates->render('maintenance/widgets/body', array(
-            'announcements' => $announcements,
+            'announcements' => $this->filterAnnouncements($announcements),
         ));
     }
 
@@ -75,7 +82,45 @@ class MaintenanceWidget extends BaseWidget
     {
         return array(
             'title' => array(AttributeType::Name, 'required' => true, 'default' => Craft::t('Announcements')),
-            'limit' => array(AttributeType::Number, 'min' => 0, 'default' => 5),
+            'statuses' => array(AttributeType::Mixed),
+            'simpleNote' => array(AttributeType::Bool),
         );
+    }
+
+    // Protected Methods
+    // =========================================================================
+
+    /**
+     * Filters announcements according to the widget's settings.
+     *
+     * @param array $announcements
+     *
+     * @return array
+     */
+    private function filterAnnouncements($announcements)
+    {
+        $settings = $this->getSettings();
+        $statuses = $settings->statuses;
+
+        if (!$statuses) {
+            $statuses = array();
+        }
+
+        if (in_array('pending', $statuses)) {
+            $statuses[] = 'imminent';
+        }
+
+        if ($settings->simpleNote) {
+            $statuses[] = 'none';
+        }
+
+        $filtered = array();
+        foreach ($announcements as $announcement) {
+            if (in_array($announcement->getStatus(), $statuses)) {
+                $filtered[] = $announcement;
+            }
+        }
+
+        return $filtered;
     }
 }
