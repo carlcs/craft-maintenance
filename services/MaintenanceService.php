@@ -9,13 +9,11 @@ class MaintenanceService extends BaseApplicationComponent
     /**
      * Returns all announcements.
      *
-     * @param int $limit
-     *
      * @return array
      */
-    public function getAnnouncements($limit = null)
+    public function getAnnouncements()
     {
-        $announcementRecords = $this->_getAnnouncementRecords($limit);
+        $announcementRecords = $this->_getAnnouncementRecords();
 
         if (count($announcementRecords) > 0) {
             return Maintenance_AnnouncementModel::populateModels($announcementRecords);
@@ -223,19 +221,13 @@ class MaintenanceService extends BaseApplicationComponent
     /**
      * Returns announcement records.
      *
-     * @param int $limit
-     *
      * @return array
      */
-    private function _getAnnouncementRecords($limit)
+    private function _getAnnouncementRecords()
     {
         $criteria = array(
             'order' => 'sortOrder desc',
         );
-
-        if ($limit !== null) {
-            $criteria = array_merge($criteria, array('limit' => $limit));
-        }
 
         return Maintenance_AnnouncementRecord::model()->ordered()->findAll($criteria);
     }
