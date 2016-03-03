@@ -175,11 +175,10 @@ class MaintenancePlugin extends BasePlugin
 
                 if ($announcement = $this->announcement) {
                     if ($announcement->blockSite && $announcement->getStatus() === 'inprogress') {
-                        $urlWhitelist = array('/503');
-                        $urlWhitelist = array_merge($urlWhitelist, $this->pluginSettings['maintenanceUrls']);
+                        $urlWhitelist = $this->pluginSettings['maintenanceUrls'];
 
                         if (!in_array(craft()->request->getUrl(), $urlWhitelist)) {
-                            craft()->request->redirect('/503');
+							throw new HttpException(503);
                         }
                     }
                 }
