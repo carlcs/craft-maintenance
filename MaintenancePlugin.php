@@ -71,8 +71,10 @@ class MaintenancePlugin extends BasePlugin
             craft()->templates->includeJsResource('maintenance/maintenance.js');
         }
 
-        $this->initCpAccessControl();
-        $this->initSiteAccessControl();
+        if (!craft()->isConsole()) {
+            $this->initCpAccessControl();
+            $this->initSiteAccessControl();
+        }
     }
 
     public function prepSettings($settings)
